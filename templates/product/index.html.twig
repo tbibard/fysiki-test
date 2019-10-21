@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h2>Product list</h2>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col col-md-4">
+                <div class="card" style="width: 18rem;">
+{#                    <img src="..." class="card-img-top" alt="...">#}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#    <script type="text/javascript" src="{{ asset('build/club.js') }}"></script>#}
+{% endblock javascripts %}
+

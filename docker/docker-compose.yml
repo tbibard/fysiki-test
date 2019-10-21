@@ -1,0 +1,59 @@
+version: '3.4'
+
+services:
+  fysiki_app:
+    build:
+      context: .
+      target: symfony_docker_php
+      args:
+        SYMFONY_VERSION: ${SYMFONY_VERSION:-}
+        STABILITY: ${STABILITY:-stable}
+    volumes:
+      - ../:/var/www
+    user: ${UID}:${GID}
+    environment:
+      - SYMFONY_VERSION
+      - YARN_CACHE_FOLDER=/tmp/yarn
+    networks:
+      - internal
+
+  fysiki_nginx:
+    build:
+      context: .
+      target: symfony_docker_nginx
+    depends_on:
+      - fysiki_app
+    volumes:
+      # Comment out the next line in production
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ../:/var/www
+      - /var/data/docker_logs/symfony:/var/log/nginx
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=fysiki_nginx"
+      - "traefik.docker.network=traefik"
+      - "traefik.frontend.rule=Host:${VIRTUAL_HOST}"
+      - "traefik.port=80"
+    networks:
+      - internal
+      - traefik
+
+  fysiki_maildev:
+    image: djfarrelly/maildev
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=fysiki_maildev"
+      - "traefik.docker.network=traefik"
+      - "traefik.frontend.rule=Host:maildev-fysiki.neblion.tbibard"
+      - "traefik.port=80"
+    networks:
+      - traefik
+      - internal
+
+networks:
+  traefik:
+    external: true
+  internal:
+    external: false
+
+

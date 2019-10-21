@@ -1,0 +1,7 @@
+{% block body %}
+    {% for review in reviews %}
+        {{ include('review/_review.html.twig') }}
+    {% else %}
+        <p class="">No review !</p>
+    {% endfor %}
+{% endblock %}

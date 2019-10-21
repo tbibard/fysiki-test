@@ -1,0 +1,15 @@
+<div class="row review-row">
+    <div class="card w-100">
+        <div class="card-header">
+            par {{ review.alias }} le {{ review.created|date('d/m/Y') }} à {{ review.created|date('H:i') }}
+            <span class="badge badge-secondary float-right">Note : {{ review.note }} <img src="{{ asset('stars-'~review.note~'.svg') }}" style="max-height: 20px;" alt="{{ review.note }} stars"></span>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ review.title }}</h5>
+            {% if review.photo %}
+                <img src="{{ asset('reviews/photos/'~review.photo) }}" class="rounded float-right" alt="Responsive image">
+            {% endif %}
+            <p class="card-text">{{ review.comment|raw }}</p>
+        </div>
+    </div>
+</div>

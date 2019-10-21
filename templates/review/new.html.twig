@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h2>Create new Review</h2>
+
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="jumbotron">
+                <h1 class="display-4">{{ product.title }}</h1>
+                <hr class="my-4">
+                <p>{{ product.description }}</p>
+            </div>
+
+            {{ include('review/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        // tinymce.remove();
+        tinymce.init({
+            selector: '#review_comment',
+            skin_url: '/tinymce/skins/lightgray',
+            // language_url: '/tinymce/langs/fr_FR.js',
+            branding: false,
+            elementpath: false,
+            forced_root_block : false, // Never produce <p> when hit enter
+                menubar: false,
+                toolbar: 'undo redo | fontsizeselect | bold italic underline | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | removeformat | tags ',
+                fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt",
+                valid_elements: 'strong,b,i,u,pre,br,p[style],em,span[style],div[style]',
+                valid_styles: {
+                    'span': 'text-decoration,font-size',
+                    'div': 'text-align,padding-left,font-size',
+                    'p': 'text-align,padding-left,font-size',
+                },
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        tinymce.triggerSave();
+                    });
+                }
+            });
+    </script>
+{% endblock %}

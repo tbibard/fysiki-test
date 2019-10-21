@@ -1,0 +1,70 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h2>Product show</h2>
+
+    <div class="row">
+
+        <div class="col-12 col-md-12">
+            <div class="jumbotron">
+                <h1 class="display-4">{{ product.title }}</h1>
+                <hr class="my-4">
+                <p>{{ product.description }}</p>
+            </div>
+
+            <form id="review-filters" data-filter="none" data-tri="date">
+                <div class="form-row align-items-center">
+                    <h3>Reviews</h3>
+
+                    <div class="col-auto">
+                        <div class="dropdown mb-2 mr-sm-2">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Filter on <span id="filter-label">none</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item filter-note" href="#" data-note="none">No filter</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item filter-note" href="#" data-note="1">Note = 1</a>
+                                <a class="dropdown-item filter-note" href="#" data-note="2">Note = 2</a>
+                                <a class="dropdown-item filter-note" href="#" data-note="3">Note = 3</a>
+                                <a class="dropdown-item filter-note" href="#" data-note="4">Note = 4</a>
+                                <a class="dropdown-item filter-note" href="#" data-note="5">Note = 5</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-auto">
+                        <div class="btn-group mb-2 mr-sm-2" role="group" aria-label="Tri">
+                            <button type="button" class="btn btn-outline-secondary disabled">Tri</button>
+                            <button type="button" class="btn btn-warning btn-tri" data-tri="date">Date</button>
+                            <button type="button" class="btn btn-secondary btn-tri" data-tri="note">Note</button>
+                        </div>
+                    </div>
+
+                    <a class="btn btn-primary mb-2" href="{{ path('review_new', {'id': product.id}) }}">Add review</a>
+                </div>
+            </form>
+
+{#            <div id="add-review" class="hide"></div>#}
+
+            <div id="reviews-list" data-url="{{ path('review_list', {'id': product.id}) }}">
+                {% for review in reviews %}
+                    {{ include('review/_review.html.twig') }}
+                {% else %}
+                    <p class="">No review !</p>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#    <script type="text/javascript" src="{{ asset('build/club.js') }}"></script>#}
+{% endblock javascripts %}
+

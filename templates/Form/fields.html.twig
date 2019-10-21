@@ -1,0 +1,35 @@
+{% block choice_widget_expanded %}
+    {% spaceless %}
+        <div {{ block('widget_container_attributes') }}>
+            {% for child in form %}
+                {{ form_widget(child) }}
+            {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock choice_widget_expanded %}
+
+{% block checkbox_widget %}
+    {% spaceless %}
+        <label class="checkbox inline">
+            <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} /> {{ label }}
+        </label>
+    {% endspaceless %}
+{% endblock checkbox_widget %}
+
+{% block radio_widget %}
+    {% spaceless %}
+        <label class="radio inline">
+            <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if value == '' %} style="display: none;"{% endif %}{% if checked %} checked="checked"{% endif %} /> {{ value }}
+        </label>
+    {% endspaceless %}
+{% endblock radio_widget %}
+
+{% block yesno_widget %}
+    {% spaceless %}
+        <div class="btn-group">
+            <a href="#" class="btn-yesno btn btn-default {% if value == 1 %}btn-success{% endif %}" data-field="{{ name }}" data-value="1">Oui</a>
+            <a href="#" class="btn-yesno btn btn-default {% if value == 0 %}btn-success{% endif %}" data-field="{{ name }}" data-value="0">Non</a>
+        </div>
+        <input type="hidden" {{ block('widget_attributes') }} value="{{ value }}" />
+    {% endspaceless %}
+{% endblock yesno_widget %}

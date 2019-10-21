@@ -1,0 +1,12 @@
+@import "variables";
+@import '~bootstrap/scss/bootstrap';
+@import "~glyphicons-only-bootstrap/css/bootstrap";
+@import "bootswatch";
+
+div.review-row {
+  margin-bottom: 10px;
+}
+
+div#add-review {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,113 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <a class="navbar-brand" href="{{ path('homepage') }}">Fysiki Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% if is_granted("IS_AUTHENTICATED_FULLY") and app.request.get('_route') not in ['strong_login', 'duo'] %}
+            <ul class="navbar-nav flex-row ml-auto justify-content-between">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="glyphicon glyphicon-user icon-white"></i> {{ app.user.firstname|first }}. {{ app.user.lastname }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown1">
+                        <a class="dropdown-item" href="{{ path("account_edit_perso", {'id': app.user.id}) }}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Modification de mes coordonnées</a>
+                        <a class="dropdown-item" href="{{ path('account_change_password', { 'id': app.user.id }) }}"><span class="glyphicon glyphicon-lock"></span>&nbsp;Modification du mot de passe</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a>
+                    </div>
+                </li>
+
+                {% if is_granted('ROLE_BO') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="glyphicon glyphicon-wrench icon-white"></i> <b class="caret"></b>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown2">
+                            {% if is_granted("ROLE_BO_USERS") %}
+                                <a class="dropdown-item" href="{{ path('account') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;Utilisateurs, Groupes</a>
+                                <div class="dropdown-divider"></div>
+                            {% endif %}
+{#                            {% if is_granted('ROLE_CLIENT') and demo == "false" %}#}
+{#                                <a class="dropdown-item" href="{{ path('client') }}"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;Edition du Client</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                            {% endif %}#}
+{#                            {% if is_granted("ROLE_COMPTA") %}#}
+{#                                <a class="dropdown-item" href="{{ path('invoice') }}"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Factures Onum</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                            {% endif %}#}
+{#                            {% if is_granted('ROLE_BO_CLINICS') %}#}
+{#                                <a class="dropdown-item" href="{{ path('mailing') }}"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Publipostage</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                            {% endif %}#}
+{#                            {% if demo == "false" %}#}
+{#                                <a class="dropdown-item" href="{{ path('sms_index') }}"><span class="glyphicon glyphicon-phone"></span>&nbsp;Achats de SMS</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                            {% endif %}#}
+{#                            {% if is_granted('ROLE_BO_NONMED') %}#}
+{#                                <a class="dropdown-item" href="{{ path('bo_non_medical') }}"><span class="glyphicon glyphicon-cog"></span>&nbsp;Eléments non-médicaux</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                            {% endif %}#}
+{#                            {% if is_granted('ROLE_BO_MED') %}#}
+{#                                <a class="dropdown-item" href="{{ path('bo_medical') }}"><span class="glyphicon glyphicon-cog"></span>&nbsp;Eléments médicaux</a>#}
+{#                            {% endif %}#}
+                        </div>
+                    </li>
+                {% endif %}
+
+{#                {% if is_granted('ROLE_PAYMENTS') or is_granted('ROLE_COMPTA') %}#}
+{#                    <li class="nav-item dropdown">#}
+{#                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                            <i class="glyphicon glyphicon-euro icon-white"></i> <b class="caret"></b>#}
+{#                        </a>#}
+{#                        <div class="dropdown-menu" aria-labelledby="navbarDropdown3">#}
+{#                            {% if is_granted('ROLE_PAYMENTS') %}#}
+{#                                <a class="dropdown-item" href="{{ path('comptability_waiting_payment') }}"><span class="glyphicon glyphicon-hourglass"></span>&nbsp;Attente de paiement</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                                <a class="dropdown-item" href="{{ path('comptability_bankcheck_date', {'date': 'now'|date('Ymd')}) }}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Remise de chèques</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                            {% endif %}#}
+
+{#                            {% if is_granted("ROLE_COMPTA") %}#}
+{#                                <a class="dropdown-item" href="{{ path('comptability') }}"><span class="glyphicon glyphicon-euro"></span>&nbsp;Suivi du chiffre d'affaire</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                                <a class="dropdown-item" href="{{ path('comptability_export') }}"><span class="glyphicon glyphicon-export"></span>&nbsp;Gestion des exports</a>#}
+{#                                <div class="dropdown-divider"></div>#}
+{#                                <a class="dropdown-item" href="{{ path('comptability_perf_recovery') }}"><span class="glyphicon glyphicon-piggy-bank"></span>&nbsp;Performance du recouvrement</a>#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                    </li>#}
+{#                {% endif %}#}
+
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="{{ path('changelog') }}" data-toggle="tooltip" data-placement="bottom" title="Accéder au changelog">#}
+{#                        <h6 style="margin-bottom:0px"><span class="badge badge-info">{{ onum_version }}</span></h6>#}
+{#                    </a>#}
+{#                </li>#}
+
+{#                {% if app.session.has('CcamVersion') %}#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="http://www.ameli.fr/accueil-de-la-ccam/index.php" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Accéder au site de la CCAM">#}
+{#                            <h6 style="margin-bottom:0px"><span class="badge badge-success">Ccam : {{ app.session.get('CcamVersion') }}</span></h6>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+
+{#                {% if app.session.has('rppsVersion') %}#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="https://annuaire.sante.fr/web/site-pro/extractions-publiques" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Version de la base RPPS">#}
+{#                            <h6 style="margin-bottom:0px"><span class="badge badge-warning">Rpps : {{ app.session.get('rppsVersion')|date('d/m/Y') }}</span></h6>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link"href="{{ path('support') }}">#}
+{#                        <h6 style="margin-bottom:0px"><span class="badge badge-success">Aide et Support</span></h6>#}
+{#                    </a>#}
+{#                </li>#}
+            </ul>
+        {% endif %}
+    </div>
+
+</nav>
