@@ -10,6 +10,6 @@
     "glyphicons-only-bootstrap": "^1.0.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",
-    "tinymce": "4.7.6"
+    "tinymce": "5.7.1"
   }
 }
